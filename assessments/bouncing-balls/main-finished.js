@@ -29,6 +29,10 @@ function Ball() {
 
 }
 
+// ball inherits from shape
+
+Ball.prototype = Object.create(Shape.prototype);
+
 // define shape draw method
 
 Shape.prototype.draw = function() {
