@@ -23,13 +23,13 @@ function Shape(x, y, velX, velY, exists) {
   this.exists = Boolean(exists);
 }
 
-// define ball constructor
+// define ball constructor by calling shape constructor
 
-function Ball() {
-
+function Ball(x, y, velX, velY, exists) {
+  Shape.call(this, x, y, velX, velY, exists);
 }
 
-// ball inherits from shape
+// ball inherits from shape by setting prototype and constructor reference
 
 Ball.prototype = Object.create(Shape.prototype);
 
