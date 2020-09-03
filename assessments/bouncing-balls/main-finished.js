@@ -36,6 +36,12 @@ function Ball(x, y, velX, velY, exists, color, size) {
 
 Ball.prototype = Object.create(Shape.prototype);
 
+// define evil circle constructor by calling shape constructor
+
+function EvilConstructor(x, y, exists) {
+  Shape.call(this, x, y, 20, 20, exists);
+}
+
 // define ball draw method
 
 Ball.prototype.draw = function() {
