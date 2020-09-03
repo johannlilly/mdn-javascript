@@ -109,9 +109,6 @@ EvilConstructor.prototype.checkBounds = function() {
   if((this.y - this.size) <= 0) {
     this.velY = -(this.velY);
   }
-
-  this.x += this.velX;
-  this.y += this.velY;
 }
 
 // define ball collision detection
