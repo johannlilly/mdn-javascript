@@ -36,7 +36,7 @@ function Ball(x, y, velX, velY, exists, color, size) {
 
 Ball.prototype = Object.create(Shape.prototype);
 
-// define shape draw method
+// define ball draw method
 
 Ball.prototype.draw = function() {
   ctx.beginPath();
@@ -45,7 +45,7 @@ Ball.prototype.draw = function() {
   ctx.fill();
 };
 
-// define shape update method
+// define ball update method
 
 Ball.prototype.update = function() {
   if((this.x + this.size) >= width) {
@@ -68,7 +68,7 @@ Ball.prototype.update = function() {
   this.y += this.velY;
 };
 
-// define shape collision detection
+// define ball collision detection
 
 Ball.prototype.collisionDetect = function() {
   for(let j = 0; j < balls.length; j++) {
@@ -84,23 +84,24 @@ Ball.prototype.collisionDetect = function() {
   }
 };
 
-// define array to store shapes and populate it
+// define array to store balls and populate it
 
-let shapes = [];
+let balls = [];
 
-while(shapes.length < 25) {
+while(balls.length < 25) {
   const size = random(10,20);
-  let shape = new Shape(
-    // shape position always drawn at least one Shape width
+  let ball = new Ball(
+    // ball position always drawn at least one Shape width
     // away from the edge of the canvas, to avoid drawing errors
     random(0 + size,width - size),
     random(0 + size,height - size),
     random(-7,7),
     random(-7,7),
+    true,
     'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')',
     size
   );
-  shapes.push(shape);
+  balls.push(ball);
 }
 
 // define loop that keeps drawing the scene constantly
@@ -109,10 +110,10 @@ function loop() {
   ctx.fillStyle = 'rgba(0,0,0,0.25)';
   ctx.fillRect(0,0,width,height);
 
-  for(let i = 0; i < shapes.length; i++) {
-    shapes[i].draw();
-    shapes[i].update();
-    shapes[i].collisionDetect();
+  for(let i = 0; i < balls.length; i++) {
+    balls[i].draw();
+    balls[i].update();
+    balls[i].collisionDetect();
   }
 
   requestAnimationFrame(loop);
