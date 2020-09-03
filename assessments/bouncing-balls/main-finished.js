@@ -135,8 +135,9 @@ EvilConstructor.prototype.collisionDetect = function() {
     const dy = this.y - balls[j].y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
+    // set ball in collision to not exist
     if (distance < this.size + balls[j].size) {
-      balls[j].color = this.color = 'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')';
+      balls[j].exists = false;
     }
   }
 };
