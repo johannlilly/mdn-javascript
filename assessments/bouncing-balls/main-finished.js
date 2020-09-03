@@ -15,11 +15,12 @@ function random(min, max) {
 
 // define shape constructor
 
-function Shape(x, y, velX, velY) {
+function Shape(x, y, velX, velY, exists) {
   this.x = x;
   this.y = y;
   this.velX = velX;
   this.velY = velY;
+  this.exists = Boolean(exists);
 }
 
 // define ball constructor
@@ -27,10 +28,6 @@ function Shape(x, y, velX, velY) {
 function Ball() {
 
 }
-
-// ball inherits 
-
-Ball.prototype = Shape.prototype;
 
 // define shape draw method
 
