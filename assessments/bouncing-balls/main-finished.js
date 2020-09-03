@@ -155,7 +155,7 @@ evilBall.setControls();
 // capture number of balls displayed
 
 let count = balls.length;
-document.getElementsByTagName('p')[0].innerText = 'Ball count: ' + String(count); 
+document.getElementById('ball-count').innerText = 'Ball count: ' + String(count); 
 
 // define loop that keeps drawing the scene constantly
 
@@ -175,7 +175,7 @@ loop = () => {
     evilBall.checkBounds();
     evilBall.collisionDetect();
   }
-  document.getElementsByTagName('p')[0].innerText = 'Ball count: ' + String(count); 
+  document.getElementById('ball-count').innerText = 'Ball count: ' + String(count); 
   
   requestAnimationFrame(loop);
 }
