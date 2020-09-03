@@ -40,6 +40,9 @@ Ball.prototype = Object.create(Shape.prototype);
 
 function EvilConstructor(x, y, exists) {
   Shape.call(this, x, y, 20, 20, exists);
+
+  this.color = 'white';
+  this.size = 10;
 }
 
 // define ball draw method
