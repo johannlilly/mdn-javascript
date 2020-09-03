@@ -177,13 +177,14 @@ while(balls.length < 25) {
     size
   );
   balls.push(ball);
-  let evilBall = new EvilConstructor(
-    random(0 + size,width - size),
-    random(0 + size,height - size),
-    true
-  );
-  evilBall.setControls();
 }
+
+let evilBall = new EvilConstructor(
+  random(0 + random(10,20),width - random(10,20)),
+  random(0 + random(10,20),height - random(10,20)),
+  true
+);
+evilBall.setControls();
 
 // define loop that keeps drawing the scene constantly
 
@@ -197,6 +198,9 @@ function loop() {
       balls[i].update();
       balls[i].collisionDetect();
     }
+    evilBall.draw();
+    evilBall.checkBounds();
+    evilBall.collisionDetect();
   }
 
   requestAnimationFrame(loop);
