@@ -95,19 +95,19 @@ Ball.prototype.update = function() {
 
 EvilConstructor.prototype.checkBounds = function() {
   if((this.x + this.size) >= width) {
-    this.velX = -(this.velX);
+    this.x -= this.size;
   }
 
   if((this.x - this.size) <= 0) {
-    this.velX = -(this.velX);
+    this.x -= this.size;
   }
 
   if((this.y + this.size) >= height) {
-    this.velY = -(this.velY);
+    this.y -= this.size;
   }
 
   if((this.y - this.size) <= 0) {
-    this.velY = -(this.velY);
+    this.y -= this.size;
   }
 }
 
