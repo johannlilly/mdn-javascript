@@ -38,7 +38,7 @@ Ball.prototype = Object.create(Shape.prototype);
 
 // define shape draw method
 
-Shape.prototype.draw = function() {
+Ball.prototype.draw = function() {
   ctx.beginPath();
   ctx.fillStyle = this.color;
   ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
@@ -47,7 +47,7 @@ Shape.prototype.draw = function() {
 
 // define shape update method
 
-Shape.prototype.update = function() {
+Ball.prototype.update = function() {
   if((this.x + this.size) >= width) {
     this.velX = -(this.velX);
   }
@@ -70,15 +70,15 @@ Shape.prototype.update = function() {
 
 // define shape collision detection
 
-Shape.prototype.collisionDetect = function() {
-  for(let j = 0; j < shapes.length; j++) {
-    if(!(this === shapes[j])) {
-      const dx = this.x - shapes[j].x;
-      const dy = this.y - shapes[j].y;
+Ball.prototype.collisionDetect = function() {
+  for(let j = 0; j < balls.length; j++) {
+    if(!(this === balls[j])) {
+      const dx = this.x - balls[j].x;
+      const dy = this.y - balls[j].y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (distance < this.size + shapes[j].size) {
-        shapes[j].color = this.color = 'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')';
+      if (distance < this.size + balls[j].size) {
+        balls[j].color = this.color = 'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')';
       }
     }
   }
