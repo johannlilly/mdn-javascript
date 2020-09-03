@@ -8,10 +8,7 @@ const height = canvas.height = window.innerHeight;
 
 // function to generate random number
 
-function random(min, max) {
-  const num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return num;
-}
+random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 // define shape constructor
 
@@ -29,10 +26,47 @@ class Shape {
 
 class Ball extends Shape {
   constructor(x, y, velX, velY, exists, color, size) {
-    super(x, y, velX, velY, exists)
+    super(x, y, velX, velY, exists);
     this.color = color;
     this.size = size;
   }
+  
+  // define ball draw method
+
+  draw() {
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.fill();
+  };
+
+  // define ball update method
+
+  update() {
+    if((this.x + this.size) >= width) this.velX = -(this.velX);
+    if((this.x - this.size) <= 0) this.velX = -(this.velX);
+    if((this.y + this.size) >= height) this.velY = -(this.velY);
+    if((this.y - this.size) <= 0) this.velY = -(this.velY);
+
+    this.x += this.velX;
+    this.y += this.velY;
+  };
+
+  // define ball collision detection
+
+  collisionDetect() {
+    for(let j = 0; j < balls.length; j++) {
+      if(!(this === balls[j])) {
+        const dx = this.x - balls[j].x;
+        const dy = this.y - balls[j].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < this.size + balls[j].size) {
+          balls[j].color = this.color = 'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')';
+        }
+      }
+    }
+  };
 }
 
 // define evil circle constructor by calling shape constructor
@@ -43,114 +77,50 @@ class EvilConstructor extends Shape {
     this.color = 'white';
     this.size = 10;
   }
-}
 
-// define ball draw method
+  // define evil constructor draw method
 
-Ball.prototype.draw = function() {
-  ctx.beginPath();
-  ctx.fillStyle = this.color;
-  ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-  ctx.fill();
-};
-
-// define evil constructor draw method
-
-EvilConstructor.prototype.draw = function() {
-  ctx.beginPath();
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = this.color;
-  ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-  ctx.stroke();
-}
-
-// define ball update method
-
-Ball.prototype.update = function() {
-  if((this.x + this.size) >= width) {
-    this.velX = -(this.velX);
+  draw() {
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = this.color;
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.stroke();
   }
 
-  if((this.x - this.size) <= 0) {
-    this.velX = -(this.velX);
+  // define evil constructor checkBounds method
+
+  checkBounds() {
+    if((this.x + this.size) >= width) this.x -= this.size;
+    if((this.x - this.size) <= 0) this.x -= this.size;
+    if((this.y + this.size) >= height) this.y -= this.size;
+    if((this.y - this.size) <= 0) this.y -= this.size;
   }
 
-  if((this.y + this.size) >= height) {
-    this.velY = -(this.velY);
-  }
+  // define evil constructor collisionDetect method
 
-  if((this.y - this.size) <= 0) {
-    this.velY = -(this.velY);
-  }
-
-  this.x += this.velX;
-  this.y += this.velY;
-};
-
-// define evil constructor checkBounds method
-
-EvilConstructor.prototype.checkBounds = function() {
-  if((this.x + this.size) >= width) {
-    this.x -= this.size;
-  }
-
-  if((this.x - this.size) <= 0) {
-    this.x -= this.size;
-  }
-
-  if((this.y + this.size) >= height) {
-    this.y -= this.size;
-  }
-
-  if((this.y - this.size) <= 0) {
-    this.y -= this.size;
-  }
-}
-
-// define ball collision detection
-
-Ball.prototype.collisionDetect = function() {
-  for(let j = 0; j < balls.length; j++) {
-    if(!(this === balls[j])) {
+  collisionDetect() {
+    for(let j = 0; j < balls.length; j++) {
       const dx = this.x - balls[j].x;
       const dy = this.y - balls[j].y;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
+      // set ball in collision to not exist
       if (distance < this.size + balls[j].size) {
-        balls[j].color = this.color = 'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')';
+        balls[j].exists = false;
       }
     }
-  }
-};
+  };
 
-// define evil constructor collisionDetect method
+  // define evil constructor setControls method
 
-EvilConstructor.prototype.collisionDetect = function() {
-  for(let j = 0; j < balls.length; j++) {
-    const dx = this.x - balls[j].x;
-    const dy = this.y - balls[j].y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    // set ball in collision to not exist
-    if (distance < this.size + balls[j].size) {
-      balls[j].exists = false;
-    }
-  }
-};
-
-// define evil constructor setControls method
-
-EvilConstructor.prototype.setControls = function() {
-  let _this = this;
-  window.onkeydown = function(e) {
-    if (e.key === 'a') {
-      _this.x -= _this.velX;
-    } else if (e.key === 'd') {
-      _this.x += _this.velX;
-    } else if (e.key === 'w') {
-      _this.y -= _this.velY;
-    } else if (e.key === 's') {
-      _this.y += _this.velY;
+  setControls() {
+    let _this = this;
+    window.onkeydown = (e) => {
+      if (e.key === 'a') _this.x -= _this.velX;
+      if (e.key === 'd') _this.x += _this.velX;
+      if (e.key === 'w') _this.y -= _this.velY;
+      if (e.key === 's') _this.y += _this.velY;
     }
   }
 }
@@ -182,7 +152,6 @@ let evilBall = new EvilConstructor(
 );
 evilBall.setControls();
 
-
 // capture number of balls displayed
 
 let count = balls.length;
@@ -190,7 +159,7 @@ document.getElementsByTagName('p')[0].innerText = 'Ball count: ' + String(count)
 
 // define loop that keeps drawing the scene constantly
 
-function loop() {
+loop = () => {
   ctx.fillStyle = 'rgba(0,0,0,0.25)';
   ctx.fillRect(0,0,width,height);
 
