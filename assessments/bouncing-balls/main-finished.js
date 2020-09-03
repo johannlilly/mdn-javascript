@@ -58,6 +58,15 @@ Ball.prototype.draw = function() {
   ctx.fill();
 };
 
+// define evil constructor draw method
+
+EvilConstructor.prototype.draw = function() {
+  ctx.beginPath();
+  ctx.strokeStyle = this.color;
+  ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+  ctx.stroke();
+}
+
 // define ball update method
 
 Ball.prototype.update = function() {
