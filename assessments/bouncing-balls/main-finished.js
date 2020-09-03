@@ -177,6 +177,12 @@ while(balls.length < 25) {
     size
   );
   balls.push(ball);
+  let evilBall = new EvilConstructor(
+    random(0 + size,width - size),
+    random(0 + size,height - size),
+    true
+  );
+  evilBall.setControls();
 }
 
 // define loop that keeps drawing the scene constantly
