@@ -15,39 +15,35 @@ function random(min, max) {
 
 // define shape constructor
 
-function Shape(x, y, velX, velY, exists) {
-  this.x = x;
-  this.y = y;
-  this.velX = velX;
-  this.velY = velY;
-  this.exists = Boolean(exists);
+class Shape {
+  constructor(x, y, velX, velY, exists) {
+    this.x = x;
+    this.y = y;
+    this.velX = velX;
+    this.velY = velY;
+    this.exists = Boolean(exists);
+  }
 }
 
 // define ball constructor by calling shape constructor
 
-function Ball(x, y, velX, velY, exists, color, size) {
-  Shape.call(this, x, y, velX, velY, exists);
-
-  this.color = color;
-  this.size = size;
+class Ball extends Shape {
+  constructor(x, y, velX, velY, exists, color, size) {
+    super(x, y, velX, velY, exists)
+    this.color = color;
+    this.size = size;
+  }
 }
-
-// ball inherits from shape by setting prototype and constructor reference
-
-Ball.prototype = Object.create(Shape.prototype);
 
 // define evil circle constructor by calling shape constructor
 
-function EvilConstructor(x, y, exists) {
-  Shape.call(this, x, y, 20, 20, exists);
-
-  this.color = 'white';
-  this.size = 10;
+class EvilConstructor extends Shape {
+  constructor(x, y, exists) {
+    super(x, y, 20, 20, exists);
+    this.color = 'white';
+    this.size = 10;
+  }
 }
-
-// evil constructor inherits from shape by setting prototype and constructor reference
-
-EvilConstructor.prototype = Object.create(Shape.prototype);
 
 // define ball draw method
 
