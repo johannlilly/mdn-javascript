@@ -45,6 +45,10 @@ function EvilConstructor(x, y, exists) {
   this.size = 10;
 }
 
+// evil constructor inherits from shape by setting prototype and constructor reference
+
+EvilConstructor.prototype = Object.create(Shape.prototype);
+
 // define ball draw method
 
 Ball.prototype.draw = function() {
