@@ -25,8 +25,11 @@ function Shape(x, y, velX, velY, exists) {
 
 // define ball constructor by calling shape constructor
 
-function Ball(x, y, velX, velY, exists) {
+function Ball(x, y, velX, velY, exists, color, size) {
   Shape.call(this, x, y, velX, velY, exists);
+
+  this.color = color;
+  this.size = size;
 }
 
 // ball inherits from shape by setting prototype and constructor reference
