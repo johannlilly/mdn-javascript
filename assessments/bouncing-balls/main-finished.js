@@ -24,6 +24,12 @@ function Shape(x, y, velX, velY, color, size) {
   this.size = size;
 }
 
+// define ball constructor
+
+function Ball() {
+
+}
+
 // define shape draw method
 
 Shape.prototype.draw = function() {
