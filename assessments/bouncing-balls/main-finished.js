@@ -91,6 +91,29 @@ Ball.prototype.update = function() {
   this.y += this.velY;
 };
 
+// define evil constructor checkBounds method
+
+EvilConstructor.prototype.checkBounds = function() {
+  if((this.x + this.size) >= width) {
+    this.velX = -(this.velX);
+  }
+
+  if((this.x - this.size) <= 0) {
+    this.velX = -(this.velX);
+  }
+
+  if((this.y + this.size) >= height) {
+    this.velY = -(this.velY);
+  }
+
+  if((this.y - this.size) <= 0) {
+    this.velY = -(this.velY);
+  }
+
+  this.x += this.velX;
+  this.y += this.velY;
+}
+
 // define ball collision detection
 
 Ball.prototype.collisionDetect = function() {
